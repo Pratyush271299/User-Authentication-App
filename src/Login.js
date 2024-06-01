@@ -17,11 +17,28 @@ const Login = () => {
         setErrMsg('');
     }, [user, pwd])
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log(user, pwd);
+        setUser('')
+        setPwd('')
+        setSuccess(true)
+    }
+
     return (
-        <section>
+        <>
+            {success ? (
+                <section>
+                    <h1>You are Logged In!</h1> <br />
+                    <p>
+                    <a href="#">Go to Home</a>
+                    </p>
+                </section>
+            ) : (
+                <section>
             <p ref={errRef} className={errMsg ? 'errMsg' : 'offscreen'} aria-live='assertive'>{errMsg}</p>
             <h1>Sign In</h1>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <label htmlFor='username'>Username:</label>
                 <input 
                     type='text' 
@@ -36,13 +53,22 @@ const Login = () => {
                 <input 
                     type='password' 
                     id='password'
-                    ref={userRef}
                     onChange={e => setPwd(e.target.value)}
                     value={pwd}
                     required
                 />
+                <button>Sign Up</button>
             </form>
+            <p>
+                Need an Account For? <br />
+                <span className='line'>
+                    <a href="https://www.google.co.in/">Sign Up</a>
+                </span>
+            </p>
         </section>
+            )}
+        </>
+        
     )
 }
 
